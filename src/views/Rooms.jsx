@@ -22,13 +22,14 @@ import {
     Box
 } from '@mui/material';
 import {
-    // TagOffOutlined as ClearIcon,
     Logout as DisconnectIcon
 } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import NamespaceSelector from '../components/NamespaceSelector';
 import RoomType from '../components/Room/RoomType';
 import SocketHolder from '../SocketHolder';
+import Icon from '@mdi/react';
+import { mdiTagOffOutline } from '@mdi/js';
 
 const Rooms = () => {
     const { t } = useTranslation();
@@ -170,7 +171,7 @@ const Rooms = () => {
                                                         size="small"
                                                         sx={{ ml: 1 }}
                                                     >
-                                                        {/* <ClearIcon /> */}
+                                                        <Icon path={mdiTagOffOutline} size={1} />
                                                     </IconButton>
                                                 </Tooltip>
                                             )}

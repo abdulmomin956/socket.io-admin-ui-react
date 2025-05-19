@@ -17,12 +17,13 @@ import {
     Box
 } from '@mui/material';
 import {
-    // TagOffOutlined as LeaveIcon,
     Logout as DisconnectIcon
 } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import Transport from '../Transport';
 import SocketHolder from '../../SocketHolder';
+import Icon from '@mdi/react';
+import { mdiTagOffOutline } from '@mdi/js';
 
 const RoomSockets = ({ room }) => {
     const { t } = useTranslation();
@@ -110,7 +111,7 @@ const RoomSockets = ({ room }) => {
                                                     size="small"
                                                     sx={{ ml: 1 }}
                                                 >
-                                                    {/* <LeaveIcon /> */}
+                                                    <Icon path={mdiTagOffOutline} size={1} />
                                                 </IconButton>
                                             </Tooltip>
                                         )}

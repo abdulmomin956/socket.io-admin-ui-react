@@ -118,8 +118,6 @@ export default function ClientsOverview() {
                 <Box sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    // flexDirection: { xs: 'column', sm: 'row' },
-                    // flexDirection: 'row',
                     alignItems: 'center',
                     gap: 2
                 }}>

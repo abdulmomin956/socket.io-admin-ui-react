@@ -40,7 +40,7 @@ function AppContent() {
   const darkTheme = useSelector(state => state.config.darkTheme);
 
   const [showConnectionModal, setShowConnectionModal] = React.useState(false);
-  const [isConnecting, setIsConnecting] = React.useState(false);
+  let isConnecting = false;
   const [connectionError, setConnectionError] = React.useState('');
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function AppContent() {
   }, []);
 
   const tryConnect = (serverUrl, namespace, auth, wsOnly, path, parser) => {
-    setIsConnecting(true);
+    isConnecting = true;
     if (SocketHolder.socket) {
       SocketHolder.socket.disconnect();
       SocketHolder.socket.off('connect');
@@ -82,7 +82,7 @@ function AppContent() {
     socket.once('connect', () => {
       setShowConnectionModal(false);
       setConnectionError('');
-      setIsConnecting(false);
+      isConnecting = false;
 
       socket.io.reconnection(true);
       dispatch(saveConfig({ serverUrl, wsOnly, path, namespace, parser }));
@@ -99,12 +99,12 @@ function AppContent() {
         setShowConnectionModal(true);
         setConnectionError(err.message);
       }
-      setIsConnecting(false);
+      isConnecting = false;
     });
 
     socket.on('disconnect', (reason) => {
       if (isConnecting) {
-        setIsConnecting(false);
+        isConnecting = false;
         setConnectionError(reason);
       }
       dispatch(disconnect());
@@ -126,7 +126,6 @@ function AppContent() {
     });
 
     socket.on('all_sockets', (sockets) => {
-      // console.log(sockets, 368)
       dispatch(onAllSockets({ sockets }));
     });
 
@@ -135,12 +134,10 @@ function AppContent() {
     });
 
     socket.on('socket_updated', (socketData) => {
-      // console.log({ socket: socketData })
       dispatch(onSocketUpdated({ socket: socketData }));
     });
 
     socket.on('socket_disconnected', (nsp, id, reason, timestamp = new Date().toISOString()) => {
-      // console.log({ timestamp, nsp, id, reason })
       dispatch(onSocketDisconnected({ timestamp, nsp, id, reason }));
     });
 

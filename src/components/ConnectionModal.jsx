@@ -77,9 +77,11 @@ export default function ConnectionModal({
             open={isOpen}
             maxWidth="xs"
             fullWidth
-            PaperProps={{
-                sx: {
-                    minWidth: 300
+            slotProps={{
+                paper: {
+                    sx: {
+                        minWidth: 300
+                    }
                 }
             }}
         >

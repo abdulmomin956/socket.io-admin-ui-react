@@ -19,12 +19,10 @@ import {
     Button,
     Box
 } from '@mui/material';
-import {
-    // TagOffOutlined as LeaveIcon,
-    TagOutlined as JoinIcon
-} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import SocketHolder from '../../SocketHolder';
+import Icon from '@mdi/react';
+import { mdiTagOffOutline, mdiTagPlusOutline } from '@mdi/js';
 
 
 const SocketRooms = ({ socket, nsp }) => {
@@ -32,13 +30,11 @@ const SocketRooms = ({ socket, nsp }) => {
     const navigate = useNavigate();
     const [newRoom, setNewRoom] = useState('');
 
-    // Redux state
-    //const state = useSelector(state => state)
     const isReadonly = useSelector(state => state.config.readonly);
     const isSocketLeaveSupported = useSelector(state =>
         state.config.supportedFeatures.includes('LEAVE')
     );
-    const namespaces = useSelector(state => state.namespaces)
+    const namespaces = useSelector(state => state.main.namespaces)
     const namespace = find(namespaces, { name: nsp })
     const roomsByNamespace = namespace ? namespace.rooms : [];
 
@@ -112,7 +108,7 @@ const SocketRooms = ({ socket, nsp }) => {
                                                 disabled={isReadonly}
                                                 size="small"
                                             >
-                                                {/* <LeaveIcon /> */}
+                                                <Icon path={mdiTagOffOutline} size={1} />
                                             </IconButton>
                                         </Tooltip>
                                     )}
@@ -154,9 +150,8 @@ const SocketRooms = ({ socket, nsp }) => {
                             variant="contained"
                             size="small"
                             disabled={isReadonly || !newRoom.trim()}
-                            startIcon={<JoinIcon />}
                         >
-                            {t('sockets.join')}
+                            <Icon path={mdiTagPlusOutline} size={1} />
                         </Button>
                     </Tooltip>
                 </Box>
